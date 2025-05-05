@@ -214,5 +214,3 @@ TaskPro
 **4. The project is added to an in-memory list and returned to the client.**
 
 ---
-
-Let me know if you need any further updates or explanations!
