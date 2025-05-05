@@ -161,7 +161,7 @@ Before running the application, ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/TaskPro.git
+   git clone https://github.com/Didar1313/TaskPro.git
    ```
 
 2. Navigate into the project directory:
