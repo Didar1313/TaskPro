@@ -1,0 +1,41 @@
+package com.didar.TaskPro.controller;
+
+import com.didar.TaskPro.dto.ProjectRequestDTO;
+import com.didar.TaskPro.service.Project;
+import com.didar.TaskPro.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class ProjectController {
+    @Autowired
+    private ProjectService service;
+
+    @PostMapping("/api/projects")
+    public Project create(@RequestBody ProjectRequestDTO dto) {
+        return service.create(dto);
+    }
+
+    @GetMapping("/api/projects")
+    public List<Project> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/api/projects/{id}")
+    public Project getById(@PathVariable int id) {
+        return service.getById(id);
+    }
+
+    @PutMapping("/api/projects/{id}")
+    public Project update(@PathVariable int id, @RequestBody ProjectRequestDTO dto) {
+        return service.update(id, dto);
+    }
+
+    @DeleteMapping("/api/projects/{id}")
+    public String delete(@PathVariable int id) {
+        service.delete(id);
+        return "Deleted";
+    }
+}
