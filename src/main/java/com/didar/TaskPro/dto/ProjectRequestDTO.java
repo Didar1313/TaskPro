@@ -3,8 +3,6 @@ public class ProjectRequestDTO {
     private String name;
     private String description;
 
-    // Constructors
-    public ProjectRequestDTO() {}
 
     public ProjectRequestDTO(String name, String description) {
         this.name = name;
