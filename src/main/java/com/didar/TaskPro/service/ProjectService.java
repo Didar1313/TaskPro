@@ -21,17 +21,25 @@ public class ProjectService {
     }
 
     public Project getById(int id) {
-        return projects.get(id);
+        for (Project project : projects) {
+            if (project.getId() == id) {
+                return project;
+            }
+        }
+        throw new IllegalArgumentException("Project not found");
     }
 
+
     public Project update(int id, ProjectRequestDTO dto) {
-        Project p = projects.get(id);
+        Project p = getById(id);
         p.setName(dto.getName());
         p.setDescription(dto.getDescription());
         return p;
     }
 
     public void delete(int id) {
-        projects.remove(id);
+        Project p = getById(id);
+        projects.remove(p);
+
     }
 }

@@ -1,4 +1,4 @@
-package com.didar.TaskPro.controller;
+package com.didar.TaskPro.controller.rest;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
 import com.didar.TaskPro.service.Project;
