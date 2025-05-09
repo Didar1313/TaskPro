@@ -1,15 +1,27 @@
-package com.didar.TaskPro.service;
+package com.didar.TaskPro.persistence.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Project {
-    private static int count = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String description;
-    private int id;
 
     public Project(String name, String description) {
-        this.id = count++;
+
         this.name = name;
         this.description = description;
+
+    }
+
+    public Project() {
 
     }
 
