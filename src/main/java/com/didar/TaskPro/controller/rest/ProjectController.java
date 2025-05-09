@@ -1,7 +1,7 @@
 package com.didar.TaskPro.controller.rest;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
-import com.didar.TaskPro.service.Project;
+import com.didar.TaskPro.persistence.entity.Project;
 import com.didar.TaskPro.service.ProjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +26,19 @@ public class ProjectController {
     public List<Project> getAll() {
         return service.getAll();
     }
-
+    @Tag(name = "Get item by id", description = "Search by id for get the desire item")
     @GetMapping("/api/projects/{id}")
     public Project getById(@PathVariable int id) {
         return service.getById(id);
     }
 
+    @Tag(name = "Update the project", description = "Update the project by id")
     @PutMapping("/api/projects/{id}")
     public Project update(@PathVariable int id, @RequestBody ProjectRequestDTO dto) {
         return service.update(id, dto);
     }
 
+    @Tag(name = "Delete projects", description = "Delete Projects by id")
     @DeleteMapping("/api/projects/{id}")
     public String delete(@PathVariable int id) {
         service.delete(id);
