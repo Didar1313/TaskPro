@@ -2,7 +2,6 @@ package com.didar.TaskPro.dto;
 public class ProjectRequestDTO {
     private String name;
     private String description;
-    private int id;
 
     public ProjectRequestDTO(String name, String description) {
         this.name = name;
