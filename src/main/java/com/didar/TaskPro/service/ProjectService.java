@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class ProjectService {
     private final List<Project> projects = new ArrayList<>();
-    @Autowired
-    private final ProjectRepository projectRepository;
 
+    // Constructor Injection
+    private final ProjectRepository projectRepository;
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
