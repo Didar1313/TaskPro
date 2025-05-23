@@ -1,6 +1,7 @@
 package com.didar.TaskPro.controller.rest;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
+import com.didar.TaskPro.dto.ProjectUpdateDTO;
 import com.didar.TaskPro.persistence.entity.Project;
 import com.didar.TaskPro.service.ProjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,8 +13,9 @@ import java.util.List;
 @Tag(name="Project Resource", description = "Api managing projects")
 @RestController
 public class ProjectController {
+
     @Autowired
-    private ProjectService service;
+    ProjectService service;
 
     @Tag(name = "Create a project", description = "Create a new Project")
     @PostMapping("/api/projects")
@@ -34,8 +36,8 @@ public class ProjectController {
 
     @Tag(name = "Update the project", description = "Update the project by id")
     @PutMapping("/api/projects/{id}")
-    public Project update(@PathVariable int id, @RequestBody ProjectRequestDTO dto) {
-        return service.update(id, dto);
+    public Project update(@PathVariable int id, @RequestBody ProjectUpdateDTO projectUpdateDTO) {
+        return service.update(id, projectUpdateDTO);
     }
 
     @Tag(name = "Delete projects", description = "Delete Projects by id")

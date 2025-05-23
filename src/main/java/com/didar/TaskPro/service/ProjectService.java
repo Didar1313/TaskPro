@@ -1,9 +1,9 @@
 package com.didar.TaskPro.service;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
+import com.didar.TaskPro.dto.ProjectUpdateDTO;
 import com.didar.TaskPro.persistence.entity.Project;
-import com.didar.TaskPro.persistence.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.didar.TaskPro.persistence.persistence.repo.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,10 +33,9 @@ public class ProjectService {
     }
 
 
-    public Project update(int id, ProjectRequestDTO dto) {
+    public Project update(int id, ProjectUpdateDTO projectUpdateDTO) {
         Project p = getById(id);
-        p.setName(dto.getName());
-        p.setDescription(dto.getDescription());
+        p.setDescription(projectUpdateDTO.getDescription());
         return projectRepository.save(p);
     }
 

@@ -1,4 +1,4 @@
-package com.didar.TaskPro.persistence.repository;
+package com.didar.TaskPro.persistence.persistence.repo;
 
 import com.didar.TaskPro.persistence.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
