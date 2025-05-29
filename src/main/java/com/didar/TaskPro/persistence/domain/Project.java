@@ -1,13 +1,18 @@
-package com.didar.TaskPro.dto;
+package com.didar.TaskPro.persistence.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
+
+
+@NoArgsConstructor
 @Getter
 @AllArgsConstructor
-public class ProjectRequestDTO {
+
+public class Project {
+
+    private Long id;
     private String name;
     private String description;
 
