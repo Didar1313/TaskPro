@@ -1,46 +1,50 @@
 package com.didar.TaskPro.service;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
-import com.didar.TaskPro.dto.ProjectUpdateDTO;
-import com.didar.TaskPro.persistence.entity.Project;
+import com.didar.TaskPro.dto.ProjectResponseDTO;
+import com.didar.TaskPro.mapper.ProjectMapper;
+import com.didar.TaskPro.persistence.domain.Project;
 import com.didar.TaskPro.persistence.persistence.repo.ProjectRepository;
+import com.didar.TaskPro.persistence.persistence.entity.ProjectEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
-    private final List<Project> projects = new ArrayList<>();
 
-    // Constructor Injection
     private final ProjectRepository projectRepository;
+    //Constructor Injection
     public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     public Project create(ProjectRequestDTO dto) {
-        Project project = new Project(dto.getName(), dto.getDescription());
-        return projectRepository.save(project);
+        ProjectEntity entity = ProjectMapper.fromDto(dto);
+        return ProjectMapper.toDomain(projectRepository.save(entity));
     }
 
     public List<Project> getAll() {
-        return projectRepository.findAll();
+        return projectRepository.findAll().stream()
+                .map(ProjectMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
-    public Project getById(int id) {
-        return projectRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Result Not found"));
+    public Project getById(Long id) {
+        ProjectEntity entity = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Not found"));
+        return ProjectMapper.toDomain(entity);
     }
 
-
-    public Project update(int id, ProjectUpdateDTO projectUpdateDTO) {
-        Project p = getById(id);
-        p.setDescription(projectUpdateDTO.getDescription());
-        return projectRepository.save(p);
+    public Project update(Long id, ProjectResponseDTO dto) {
+        ProjectEntity entity = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Not found"));
+        entity.setDescription(dto.getDescription());
+        return ProjectMapper.toDomain(projectRepository.save(entity));
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         projectRepository.deleteById(id);
-
     }
 }
