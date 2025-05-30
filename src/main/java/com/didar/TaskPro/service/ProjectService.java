@@ -2,6 +2,7 @@ package com.didar.TaskPro.service;
 
 import com.didar.TaskPro.dto.ProjectRequestDTO;
 import com.didar.TaskPro.dto.ProjectResponseDTO;
+import com.didar.TaskPro.exception.custom.NotFoundException;
 import com.didar.TaskPro.mapper.ProjectMapper;
 import com.didar.TaskPro.persistence.domain.Project;
 import com.didar.TaskPro.persistence.persistence.repo.ProjectRepository;
@@ -33,13 +34,13 @@ public class ProjectService {
 
     public Project getById(Long id) {
         ProjectEntity entity = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Not found"));
+                .orElseThrow(() -> new NotFoundException("Not found"));
         return ProjectMapper.toDomain(entity);
     }
 
     public Project update(Long id, ProjectResponseDTO dto) {
         ProjectEntity entity = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Not found"));
+                .orElseThrow(() -> new NotFoundException("Not found"));
         entity.setDescription(dto.getDescription());
         return ProjectMapper.toDomain(projectRepository.save(entity));
     }
@@ -47,4 +48,5 @@ public class ProjectService {
     public void delete(Long id) {
         projectRepository.deleteById(id);
     }
+
 }
