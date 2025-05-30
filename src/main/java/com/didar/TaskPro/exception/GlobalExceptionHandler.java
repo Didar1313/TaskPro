@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleNotFoundException(NotFoundException e){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
+
+    @ExceptionHandler(Exception.class)
+    ProblemDetail handleException(Exception e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
 }
