@@ -5,6 +5,7 @@ import com.didar.TaskPro.dto.ProjectResponseDTO;
 import com.didar.TaskPro.persistence.domain.Project;
 import com.didar.TaskPro.service.ProjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ProjectController {
 
     @Tag(name = "Create a project", description = "Create a new Project")
     @PostMapping("/api/projects")
-    public Project create(@RequestBody ProjectRequestDTO dto) {
+    public Project create(@Valid @RequestBody ProjectRequestDTO dto) {
         return service.create(dto);
     }
 
