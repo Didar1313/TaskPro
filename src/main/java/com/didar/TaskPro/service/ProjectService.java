@@ -7,6 +7,8 @@ import com.didar.TaskPro.mapper.ProjectMapper;
 import com.didar.TaskPro.persistence.domain.Project;
 import com.didar.TaskPro.persistence.persistence.repo.ProjectRepository;
 import com.didar.TaskPro.persistence.persistence.entity.ProjectEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +28,11 @@ public class ProjectService {
         return ProjectMapper.toDomain(projectRepository.save(entity));
     }
 
-    public List<Project> getAll() {
-        return projectRepository.findAll().stream()
-                .map(ProjectMapper::toDomain)
-                .collect(Collectors.toList());
+    public Page<Project> getAll(Pageable pageable) {
+        return projectRepository.findAll(pageable)
+                .map(ProjectMapper::toDomain);
     }
+
 
     public Project getById(Long id) {
         ProjectEntity entity = projectRepository.findById(id)

@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -30,9 +32,12 @@ public class ProjectController {
 
     @Tag(name = "Get all projects", description = "List of Projects")
     @GetMapping("/api/projects")
-    public List<Project> getAll() {
-        return service.getAll();
+    public Page<Project> getAll(Pageable pageable) {
+        Page<Project> projects = service.getAll(pageable);
+        System.out.println(projects.getTotalPages());
+        return projects;
     }
+
     @Tag(name = "Get item by id", description = "Search by id for get the desire item")
     @GetMapping("/api/projects/{id}")
     public Project getById(@PathVariable @NotNull @Min(value = 1, message = "ID must be greater than 0") int id) {
