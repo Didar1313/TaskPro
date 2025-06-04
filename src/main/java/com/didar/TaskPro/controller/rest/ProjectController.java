@@ -3,6 +3,7 @@ package com.didar.TaskPro.controller.rest;
 import com.didar.TaskPro.dto.ProjectRequestDTO;
 import com.didar.TaskPro.dto.ProjectResponseDTO;
 import com.didar.TaskPro.persistence.domain.Project;
+import com.didar.TaskPro.persistence.persistence.repo.ProjectRepository;
 import com.didar.TaskPro.service.ProjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,6 +24,10 @@ public class ProjectController {
 
     @Autowired
     ProjectService service;
+    @Autowired
+    private ProjectRepository projectRepository;
+    @Autowired
+    private ProjectService projectService;
 
     @Tag(name = "Create a project", description = "Create a new Project")
     @PostMapping("/api/projects")
@@ -34,14 +39,14 @@ public class ProjectController {
     @GetMapping("/api/projects")
     public Page<Project> getAll(Pageable pageable) {
         Page<Project> projects = service.getAll(pageable);
-        System.out.println(projects.getTotalPages());
+       // System.out.println(projects.getTotalPages());
         return projects;
     }
 
     @Tag(name = "Get item by id", description = "Search by id for get the desire item")
     @GetMapping("/api/projects/{id}")
-    public Project getById(@PathVariable @NotNull @Min(value = 1, message = "ID must be greater than 0") int id) {
-        return service.getById((long) id);
+    public Project getById(@PathVariable @NotNull @Min(value = 1, message = "ID must be greater than 0") Long id) {
+        return service.getById(id);
     }
 
     @Tag(name = "Update the project", description = "Update the project by id")
@@ -56,5 +61,11 @@ public class ProjectController {
     public String delete(@PathVariable @NotNull @Min(value = 1, message = "ID must be greater than 0") Long id) {
         service.delete(id);
         return "Deleted";
+    }
+
+    @Tag(name = "Search projects", description = "Search Projects by Name")
+    @GetMapping("/api/projects/name")
+    public List<Project>getName(@RequestParam String name){
+       return projectService.getByName(name);
     }
 }
